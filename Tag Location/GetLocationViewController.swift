@@ -35,7 +35,7 @@ class GetLocationViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func tagLocationButtonPressed(sender: AnyObject) {
     }
     @IBAction func getLocationButtonPressed(sender: AnyObject) {
-        if !CLLocationManager.locationServicesEnabled() {
+        if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.NotDetermined {
             locationManager.requestWhenInUseAuthorization()
         }
         startGettingLocation()
@@ -44,14 +44,14 @@ class GetLocationViewController: UIViewController, CLLocationManagerDelegate {
     }
 
     //MARK: - CLLocationManagerDelegate
-    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        let newLocation  = locations.last as? CLLocation
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let newLocation  = locations.last
         
-        println(newLocation!)
+        print(newLocation!)
         if newLocation?.timestamp.timeIntervalSinceNow < -5 {
             return
         }
@@ -75,13 +75,13 @@ class GetLocationViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
 
         if error.code == CLError.LocationUnknown.rawValue {
             return
         }
         
-        println(error)
+        print(error)
         self.error = error
         
         updateLabels()
