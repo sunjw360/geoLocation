@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D6604441BB0B12A00DC7BE8 /* TagLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6604431BB0B12A00DC7BE8 /* TagLocationTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		9D6604461BB17D2A00DC7BE8 /* CategarySelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6604451BB17D2A00DC7BE8 /* CategarySelectionTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		9DFC9E541BA9987200E538AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFC9E531BA9987200E538AC /* AppDelegate.swift */; };
 		9DFC9E561BA9987200E538AC /* GetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFC9E551BA9987200E538AC /* GetLocationViewController.swift */; };
 		9DFC9E581BA9987200E538AC /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFC9E571BA9987200E538AC /* SecondViewController.swift */; };
@@ -27,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D6604431BB0B12A00DC7BE8 /* TagLocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagLocationTableViewController.swift; sourceTree = "<group>"; };
+		9D6604451BB17D2A00DC7BE8 /* CategarySelectionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategarySelectionTableViewController.swift; sourceTree = "<group>"; };
 		9DFC9E4E1BA9987200E538AC /* Tag Location.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tag Location.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DFC9E521BA9987200E538AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DFC9E531BA9987200E538AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +85,8 @@
 			children = (
 				9DFC9E531BA9987200E538AC /* AppDelegate.swift */,
 				9DFC9E551BA9987200E538AC /* GetLocationViewController.swift */,
+				9D6604431BB0B12A00DC7BE8 /* TagLocationTableViewController.swift */,
+				9D6604451BB17D2A00DC7BE8 /* CategarySelectionTableViewController.swift */,
 				9DFC9E571BA9987200E538AC /* SecondViewController.swift */,
 				9DFC9E591BA9987200E538AC /* Main.storyboard */,
 				9DFC9E5C1BA9987200E538AC /* Images.xcassets */,
@@ -166,6 +172,7 @@
 				TargetAttributes = {
 					9DFC9E4D1BA9987200E538AC = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = TF3HEDNHEM;
 					};
 					9DFC9E641BA9987300E538AC = {
 						CreatedOnToolsVersion = 6.4;
@@ -220,6 +227,8 @@
 				9DFC9E581BA9987200E538AC /* SecondViewController.swift in Sources */,
 				9DFC9E541BA9987200E538AC /* AppDelegate.swift in Sources */,
 				9DFC9E561BA9987200E538AC /* GetLocationViewController.swift in Sources */,
+				9D6604441BB0B12A00DC7BE8 /* TagLocationTableViewController.swift in Sources */,
+				9D6604461BB17D2A00DC7BE8 /* CategarySelectionTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,10 +358,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Tag Location/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "EZS.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -360,10 +372,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Tag Location/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "EZS.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

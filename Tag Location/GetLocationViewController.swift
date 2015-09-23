@@ -15,11 +15,16 @@ class GetLocationViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var gratitudeLabel: UILabel!
     @IBOutlet weak var getLocationButton: UIButton!
     @IBOutlet weak var tagLocationButton: UIButton!
+    @IBOutlet weak var addressLabel: UILabel!
 
     private let locationManager = CLLocationManager()
     private var location: CLLocation?
+    private var placemark: CLPlacemark?
     private var updating: Bool = false
+    private var reverseGeolocationInProgress = false
     private var error: NSError?
+    private var geoCoderError: NSError?
+    private let geoCoder = CLGeocoder()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +57,7 @@ class GetLocationViewController: UIViewController, CLLocationManagerDelegate {
         let newLocation  = locations.last
         
         print(newLocation!)
+        
         if newLocation?.timestamp.timeIntervalSinceNow < -5 {
             return
         }
@@ -71,6 +77,8 @@ class GetLocationViewController: UIViewController, CLLocationManagerDelegate {
             updateLabels()
             error = nil
             
+            getGeolocationAddress()
+            
             stopGettingLocation()
         }
     }
@@ -88,16 +96,46 @@ class GetLocationViewController: UIViewController, CLLocationManagerDelegate {
         stopGettingLocation()
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "TagLocation" {
+            let navigationVC = segue.destinationViewController as! UINavigationController
+            let tagLocationVC = navigationVC.topViewController as! TagLocationTableViewController
+            
+            tagLocationVC.placemark = placemark
+            tagLocationVC.location = location!
+        }
+    }
     
     //MARK: - Private Functions
     private func updateLabels() {
         if let error = error {
-            statusLabel.text = "Entercountered an error"
+            statusLabel.text = "Entercountered an error."
+            print("\(error)")
         } else {
             if updating {
                 statusLabel.text = "Updating Location..."
             } else {
                 statusLabel.text = "Ready to Update"
+            }
+        }
+        
+        if let error = geoCoderError {
+            statusLabel.text = "Geocoder encountered an error."
+            print("\(error)")
+            if error.code == CLError.Network.rawValue {
+                statusLabel.text = "Ready to Update"
+                addressLabel.text = "No Network Connection"
+            }
+        } else {
+            if let placemark = placemark {
+                let subThoroughfare = (placemark.subThoroughfare == nil ? "": placemark.subThoroughfare!)
+                
+                let thoroughfare = (placemark.thoroughfare == nil ? "": placemark.thoroughfare!)
+                
+                let address = "\(subThoroughfare) \(thoroughfare) \n \(placemark.locality!), \(placemark.administrativeArea!), \(placemark.postalCode!) \n \(placemark.country!)"
+                addressLabel.text = address
+            } else {
+                addressLabel.text = "-"
             }
         }
         
@@ -152,6 +190,29 @@ class GetLocationViewController: UIViewController, CLLocationManagerDelegate {
             updateLabels()
         }
         
+    }
+    
+    private func getGeolocationAddress() {
+        if let location = location {
+            if !reverseGeolocationInProgress {
+                geoCoderError = nil
+                
+                reverseGeolocationInProgress = true
+                geoCoder.reverseGeocodeLocation(location, completionHandler: {
+                    placemarks, error in
+                    if error == nil && placemarks?.count > 0 {
+                        self.placemark = placemarks?.last
+                        self.reverseGeolocationInProgress = false
+                    } else {
+                        self.placemark = nil
+                        self.geoCoderError = error
+                    }
+                    
+                    self.updateLabels()
+                    
+                })
+            }
+        }
     }
 }
 
